@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   }
 });
 // webhooks
-app.use("/webhooks", express.raw({ type: "*/*" }), clerkWebHooks);
+app.post("/webhooks", clerkWebHooks);
 // !Start
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
