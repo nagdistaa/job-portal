@@ -36,7 +36,10 @@ export const clerkWebHooks = async (req, res) => {
 
       case "user.deleted": {
         await User.findByIdAndDelete(data.id);
-        return res.json({ success: true, message: "user deleted successfully" });
+        return res.json({
+          success: true,
+          message: "user deleted successfully",
+        });
       }
 
       default:

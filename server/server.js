@@ -5,11 +5,12 @@ import { clerkWebHooks } from "./controllers/webhooks.controller.js";
 // import cors from 'cors'
 // !Important
 await connectDB();
+
 // !Variables
 const app = express();
 const port = process.env.PORT || 50001;
 // !Middlewares
-app.use(express.json());  
+app.use(express.json());
 // app.use(cors());
 // !Routes
 app.get("/", (req, res) => {
@@ -20,7 +21,7 @@ app.get("/", (req, res) => {
   }
 });
 // webhooks
-app.post('/webhooks',clerkWebHooks)
+app.use("/webhooks", express.raw({ type: "*/*" }), clerkWebHooks);
 // !Start
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
