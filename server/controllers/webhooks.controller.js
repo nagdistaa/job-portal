@@ -2,14 +2,15 @@ import { Webhook } from "svix";
 import User from "../models/user.model.js";
 export const clerkWebHooks = async (req, res) => {
   try {
+    console.log("start clerkwebhooks");
     const webhook = new Webhook(process.env.WEBHOOK_SECRET_KEY);
     await webhook.verify(req.body, {
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
     });
-
     const { data, type } = JSON.parse(req.body);
+    console.log("recieved after verifying");
 
     switch (type) {
       case "user.created": {
@@ -20,6 +21,12 @@ export const clerkWebHooks = async (req, res) => {
           image: data.image_url,
           resume: "",
         };
+        console.log(
+          data.id,
+          data.first_name + " " + data.last_name,
+          data.email_addresses[0]?.email_address || "",
+          data.image_url
+        );
         await User.create(userData);
         return res.json({ success: true, message: userData });
       }
