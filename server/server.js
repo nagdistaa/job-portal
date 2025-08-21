@@ -9,7 +9,7 @@ await connectDB();
 const app = express();
 const port = process.env.PORT || 50001;
 // !Middlewares
-// app.use(express.json());
+app.use(express.json());  
 // app.use(cors());
 // !Routes
 app.get("/", (req, res) => {
