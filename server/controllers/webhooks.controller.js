@@ -9,7 +9,7 @@ export const clerkWebHooks = async (req, res) => {
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
     });
-    const { data, type } = JSON.parse(req.body);
+const { data, type } = JSON.parse(req.body.toString());
     console.log("recieved after verifying");
 
     switch (type) {

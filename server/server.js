@@ -9,6 +9,8 @@ await connectDB();
 // !Variables
 const app = express();
 const port = process.env.PORT || 50001;
+// webhooks
+app.post("/webhooks", express.raw({ type: "*/*" }), clerkWebHooks);
 // !Middlewares
 app.use(express.json());
 // app.use(cors());
@@ -20,8 +22,7 @@ app.get("/", (req, res) => {
     res.json({ success: false, message: error.message });
   }
 });
-// webhooks
-app.post("/webhooks", clerkWebHooks);
+
 // !Start
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
